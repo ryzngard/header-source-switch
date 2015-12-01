@@ -10,6 +10,9 @@
 	"categories": [
 		"Other"
 	],
+	"scripts": {
+		"vscode:prepublish": "tsc"
+	},
 	"activationEvents": [
 		"onCommand:extension.switch"
 	],
@@ -30,10 +33,11 @@
 	},
 	"devDependencies": {
 		"typescript": "^1.6.2",
-		"vscode": "0.10.x",
-		"fs-plus": "^2.0.4"
+		"vscode": "0.10.x"
 	},
 	"dependencies": {
-		"fs-plus": "^2.0.4"
+		"fs": "*",
+		"path": "*"
 	}
+	
 }

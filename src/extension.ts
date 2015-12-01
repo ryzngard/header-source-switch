@@ -2,16 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import * as path from 'path';
-import * as fs from 'fs-plus';
-
-function findFileInDir(dir: string, filename: string, header: boolean) {
-	if (header) {
-
-	}
-	else {
-
-	}
-}
+import * as fs from 'fs';
 
 let headerExtensions : String[] = ['.h', '.hpp', '.hh', '.hxx'];
 let sourceExtensions : String[] = ['.cpp', '.c', '.cc', '.cxx', '.m', '.mm'];
@@ -52,7 +43,10 @@ export function activate(context: vscode.ExtensionContext) {
 		let newFileName = fileWithoutExtension;
 		let found : boolean = false;
 		
-		let filesInDir: String[] = fs.listSync(dir, extensions);
+		let filesInDir: String[] = fs.readdirSync(dir).filter((value: string, index: number, array: string[]) =>
+		{
+			return (path.extname(value).match(extRegex) != undefined);
+		});
 		
 		for (var i = 0; i < filesInDir.length; i++)
 		{
@@ -68,7 +62,7 @@ export function activate(context: vscode.ExtensionContext) {
 		
 		let newFile = path.join(dir, newFileName);
 		
-		if (found && fs.isFileSync(newFile))
+		if (found)
 		{
 			console.log("Opening " + newFile);
 			
