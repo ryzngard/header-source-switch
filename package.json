@@ -2,7 +2,7 @@
 	"name": "vscode-header-source",
 	"displayName": "vscode-header-source",
 	"description": "Header-source switcher for vscode",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"publisher": "ryzngard",
 	"engines": {
 		"vscode": "^0.10.1"
