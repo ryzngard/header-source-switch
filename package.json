@@ -1,9 +1,13 @@
 {
     "name": "vscode-header-source",
-    "displayName": "vscode-header-source",
+    "displayName": "Header source",
     "description": "Header-source switcher for vscode",
     "version": "1.0.2",
     "publisher": "ryzngard",
+    "bugs": {
+      "url": "https://github.com/ryzngard/header-source-switch/issues"
+    },
+    "homepage": "https://github.com/ryzngard/header-source-switch",
     "engines": {
         "vscode": "^0.10.1"
     },
