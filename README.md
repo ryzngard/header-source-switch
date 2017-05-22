@@ -5,7 +5,7 @@ Header-source switch for VS code
 
 * Press 'Alt+O' while a header or source file is open
 **OR**
-* Press 'Ctrl+Shift+P' and select 'Switch Header/Source'
+* Press 'Ctrl+Shift+P' ('Cmd+Shift+P' on mac) and select 'Switch Header/Source'
 
 ## Source
 
@@ -26,7 +26,8 @@ This extension contributes the following settings:
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+* If the file is not currently in the same folder, the search algorithm is non-deterministic
+* No ability to configure for different file formats
 
 ## Release Notes
 
