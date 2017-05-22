@@ -94,8 +94,8 @@ export function findMatchedFileAsync(currentFileName:string) : Thenable<string> 
                         let aRelative = path.relative(currentFileName, a);
                         let bRelative = path.relative(currentFileName, b);
 
-                        let aDistance = aRelative.split(path.delimiter).length;
-                        let bDistance = bRelative.split(path.delimiter).length;
+                        let aDistance = aRelative.split(path.sep).length;
+                        let bDistance = bRelative.split(path.sep).length;
 
                         return aDistance - bDistance;
                     });
