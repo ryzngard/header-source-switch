@@ -79,18 +79,28 @@ export function findMatchedFileAsync(currentFileName:string) : Thenable<string> 
             Promise.all(promises).then(
                 (values:any[]) => {
                     let resolved = false;
-                    values.forEach(p => {
-                       if (p.length > 0)
-                       {
-                           resolved = true;
-                           resolve(path.normalize(p[0].fsPath));
-                       }
+
+                    if (values.length == 0) {
+                        resolve(null);
+                        return;
+                    }
+
+                    let filePaths = values.map((value: any, index: number) => {
+                        return path.normalize(value[0].fsPath);
                     });
 
-                    if (!resolved)
-                    {
-                        resolve(null);
-                    }
+                    // Try to order the filepaths based on closeness to original file
+                    filePaths.sort((a: string, b: string) => {
+                        let aRelative = path.relative(currentFileName, a);
+                        let bRelative = path.relative(currentFileName, b);
+
+                        let aDistance = aRelative.split(path.delimiter).length;
+                        let bDistance = bRelative.split(path.delimiter).length;
+
+                        return aDistance - bDistance;
+                    });
+
+                    resolve(filePaths[0]);
                 }
             );
         });
