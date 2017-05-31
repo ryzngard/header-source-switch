@@ -1,56 +1,89 @@
 {
-    "name": "vscode-header-source",
-    "displayName": "Header source",
-    "description": "Header-source switcher for vscode",
-    "version": "1.0.2",
-    "publisher": "ryzngard",
-    "bugs": {
-      "url": "https://github.com/ryzngard/header-source-switch/issues"
-    },
-    "homepage": "https://github.com/ryzngard/header-source-switch",
-    "engines": {
-        "vscode": "^0.10.1"
-    },
-    "categories": [
-        "Other"
+  "name": "vscode-header-source",
+  "displayName": "Header source",
+  "description": "Header-source switcher for vscode",
+  "version": "1.0.3",
+  "publisher": "ryzngard",
+  "bugs": {
+    "url": "https://github.com/ryzngard/header-source-switch/issues"
+  },
+  "homepage": "https://github.com/ryzngard/header-source-switch",
+  "engines": {
+    "vscode": "^1.12.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:extension.switch",
+    "onCommand:extension.switchRightPane"
+  ],
+  "main": "./out/src/extension",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.switch",
+        "title": "Switch Header/Source"
+      },
+      {
+        "command": "extension.switchRightPane",
+        "title": "Switch Header/Source To Right Pane"
+      }
     ],
-    "activationEvents": [
-        "onCommand:extension.switch",
-		"onCommand:extension.switchRightPane"
+    "keybindings": [
+      {
+        "command": "extension.switch",
+        "key": "alt+o"
+      },
+      {
+        "command": "extension.switchRightPane",
+        "key": "shift+alt+o"
+      }
     ],
-    "main": "./out/src/extension",
-    "contributes": {
-        "commands": [
+    "configuration": {
+      "title": "Settings for header-source-switch",
+      "type": "object",
+      "properties": {
+        "headerSourceSwitch.mappings": {
+          "type": "array",
+          "description": "Array of mappings, defaults to C++ mappings",
+          "default": [
             {
-                "command": "extension.switch",
-                "title": "Switch Header/Source"
-            },
-            {
-                "command": "extension.switchRightPane",
-                "title": "Switch Header/Source To Right Pane"
-            }],
-        "keybindings": [
-            {
-                "command": "extension.switch",
-                "key": "alt+o"
-            },
-            {
-                "command": "extension.switchRightPane",
-                "key": "shift+alt+o"
-            }]
-    },
-    "scripts": {
-        "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
-        "compile": "node ./node_modules/vscode/bin/compile -watch -p ./"
-    },
-    "devDependencies": {
-        "typescript": "^1.6.2",
-        "vscode": "0.10.x"
-    },
-    "dependencies": {
-        "fs": "*",
-        "path": "*",
-        "file-exists": "^1.0.0"
+              "header": [
+                ".h",
+                ".hpp",
+                ".hh",
+                ".hxx"
+              ],
+              "source": [
+                ".cpp",
+                ".c",
+                ".cc",
+                ".cxx",
+                ".m",
+                ".mm"
+              ],
+              "name": "C++"
+            }
+          ]
+        }
+      }
     }
-
+  },
+  "scripts": {
+    "vscode:prepublish": "tsc -p ./",
+    "compile": "tsc -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "node ./node_modules/vscode/bin/test"
+  },
+  "devDependencies": {
+    "typescript": "^2.0.3",
+    "vscode": "^1.0.0",
+    "mocha": "^2.3.3",
+    "@types/node": "^6.0.40",
+    "@types/mocha": "^2.2.32"
+  },
+  "dependencies": {
+    "file-exists": "^3.0.2"
+  }
 }
