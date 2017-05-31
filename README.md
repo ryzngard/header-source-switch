@@ -52,11 +52,9 @@ None at the moment
 
 ## Release Notes
 
-### 1.0.4
+### 1.1.0
 
 Add mappings configuration
-
-### 1.0.3
 
 Re-released and rewritten using the latest extension practices for vscode.
 
