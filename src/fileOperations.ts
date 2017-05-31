@@ -3,6 +3,12 @@ import * as path from 'path';
 import * as fs from 'fs';
 import fileExists = require('file-exists');
 
+interface FileMapping {
+    header: string[]
+    source: string[]
+    name: string
+}
+
 export function findMatchedFileAsync(currentFileName:string) : Thenable<string> {
     let dir = path.dirname(currentFileName);
     let extension = path.extname(currentFileName);
@@ -16,17 +22,30 @@ export function findMatchedFileAsync(currentFileName:string) : Thenable<string> 
     let fileWithoutExtension = path.basename(currentFileName).replace(extension, '');
 
     // Determine if the file is a header or source file.
-    let extensions : string[];
+    let extensions : string[] = null;
 
-    let headerExtensions: string[] = ['.h', '.hpp', '.hh', '.hxx'];
-    let sourceExtensions: string[] = ['.cpp', '.c', '.cc', '.cxx', '.m', '.mm'];
+    let cfg = vscode.workspace.getConfiguration('headerSourceSwitch');
+    let mappings = cfg.get<FileMapping[]>('mappings');
 
-    if (headerExtensions.indexOf(extension) != -1) {
-        extensions = sourceExtensions;
+    for (let i = 0; i < mappings.length; i++) {
+        let mapping = mappings[i];
+
+        if (mapping.header.indexOf(extension) != -1) {
+            extensions = mapping.source;
+        } 
+        else if (mapping.source.indexOf(extension) != -1) {
+            extensions = mapping.header;
+        }
+
+        if (extensions) {
+            console.log("Detected extension using map: " + mapping.name);
+            break;
+        }
     }
-    else
-    {
-        extensions = headerExtensions;
+    
+    if (!extensions) {
+        console.log("No matching extension found");
+        return;
     }
 
     let extRegex = "(\\" + extensions.join("|\\") + ")$";

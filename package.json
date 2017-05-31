@@ -39,7 +39,36 @@
         "command": "extension.switchRightPane",
         "key": "shift+alt+o"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Settings for header-source-switch",
+      "type": "object",
+      "properties": {
+        "headerSourceSwitch.mappings": {
+          "type": "array",
+          "description": "Array of mappings, defaults to C++ mappings",
+          "default": [
+            {
+              "header": [
+                ".h",
+                ".hpp",
+                ".hh",
+                ".hxx"
+              ],
+              "source": [
+                ".cpp",
+                ".c",
+                ".cc",
+                ".cxx",
+                ".m",
+                ".mm"
+              ],
+              "name": "C++"
+            }
+          ]
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "tsc -p ./",

@@ -21,8 +21,30 @@ For example:
 
 This extension contributes the following settings:
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+```
+"headerSourceSwitch.mappings": {
+          "type": "array",
+          "description": "Array of mappings, defaults to C++ mappings",
+          "default": [
+            {
+              "header": [
+                ".h",
+                ".hpp",
+                ".hh",
+                ".hxx"
+              ],
+              "source": [
+                ".cpp",
+                ".c",
+                ".cc",
+                ".cxx",
+                ".m",
+                ".mm"
+              ],
+              "name": "C++"
+            }
+          ]
+```
 
 ## Known Issues
 
@@ -30,6 +52,10 @@ This extension contributes the following settings:
 * No ability to configure for different file formats
 
 ## Release Notes
+
+### 1.0.4
+
+Add mappings configuration
 
 ### 1.0.3
 
