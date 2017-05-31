@@ -48,8 +48,7 @@ This extension contributes the following settings:
 
 ## Known Issues
 
-* If the file is not currently in the same folder, the search algorithm is non-deterministic
-* No ability to configure for different file formats
+None at the moment
 
 ## Release Notes
 
