@@ -15,12 +15,6 @@ Please contact [me](mailto:ryzngard@live.com) if you have any questions, concern
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
 ```
 "headerSourceSwitch.mappings": {
           "type": "array",
@@ -45,10 +39,6 @@ This extension contributes the following settings:
             }
           ]
 ```
-
-## Known Issues
-
-None at the moment
 
 ## Release Notes
 
