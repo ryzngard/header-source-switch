@@ -42,6 +42,10 @@ Please contact [me](mailto:ryzngard@live.com) if you have any questions, concern
 
 ## Release Notes
 
+### 1.2.0 
+
+Add command to open in left pane. Panes are now relative to current pane, so left/right will always be -/+ one pane from active.
+
 ### 1.1.0
 
 Add mappings configuration
