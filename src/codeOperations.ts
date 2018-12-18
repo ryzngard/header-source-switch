@@ -1,40 +1,43 @@
 import * as vscode from 'vscode';
 
-export function openFile(fileName:string) {
-
-    console.log("Opening " + fileName);
-
-    let openEditor = vscode.window.visibleTextEditors.find(editor => {
-        let editorName = editor.document.fileName;
-        return editorName == fileName;
-    });
-
-    if (openEditor != undefined)
-    {
-        vscode.window.showTextDocument(openEditor.document);
-    }
-    else
-    {
-        let uriFile = vscode.Uri.file(fileName);
-        let work = vscode.workspace.openTextDocument(uriFile);
-        work.then(
-            document => {
-                console.log("Done opening " + document.fileName);
-                vscode.window.showTextDocument(document);
-            }
-        ).then(() => {return;}, (error) => { console.error(error); }) ;
-    }
-}
-
-export function openFileInRightPane(fileName:string) {
-    console.log("Opening " + fileName + " in right pane");
+export function openFileInPane(fileName:string, pane:FilePane)
+{
+    console.log("Opening " + fileName + " in " + pane + " pane");
 
     let uriFile = vscode.Uri.file(fileName);
     let work = vscode.workspace.openTextDocument(uriFile);
     work.then(
         document => {
             console.log("Done opening " + document.fileName);
-            vscode.window.showTextDocument(document, vscode.ViewColumn.Two);
+            let viewColumn: any = null;
+            let currentColumn = vscode.window.activeTextEditor.viewColumn;
+
+            if (currentColumn == null)
+            {
+                currentColumn = vscode.ViewColumn.One;
+            }
+
+            switch (pane)
+            {
+                case FilePane.Current:
+                    vscode.window.showTextDocument(document);
+                    break;
+                case FilePane.Left:
+                    viewColumn = currentColumn - 1;
+                    break;
+                case FilePane.Right:
+                    viewColumn = currentColumn + 1;
+                    break;
+            }
+
+            vscode.window.showTextDocument(document, viewColumn);
         }
     ).then(() => {return;}, (error) => { console.error(error); }) ;
+}
+
+export enum FilePane 
+{
+    Current,
+    Left,
+    Right
 }

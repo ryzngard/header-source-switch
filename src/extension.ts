@@ -3,39 +3,42 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import { findMatchedFileAsync } from './fileOperations';
-import { openFile, openFileInRightPane } from './codeOperations';
+import { openFileInPane, FilePane } from './codeOperations';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-    let disposable = vscode.commands.registerCommand('extension.switch', async () => {
-        let activeTextEditor = vscode.window.activeTextEditor;
-        let document = activeTextEditor.document;
-        findMatchedFileAsync(document.fileName).then(
-            (fileToOpen: string) => {
-                if (fileToOpen) {
-                    openFile(fileToOpen);
-                }
-            }
-        )
-    });
-
-    context.subscriptions.push(disposable);
-
-    let switchNewPaneDisposable = vscode.commands.registerCommand('extension.switchRightPane', async () => {
+    async function openInPane(pane:FilePane)
+    {
         let activeTextEditor = vscode.window.activeTextEditor;
         let document = activeTextEditor.document;
         findMatchedFileAsync(document.fileName).then(
             (fileToOpen: string) => {
                 if (fileToOpen)
                 {
-                    openFileInRightPane(fileToOpen);
+                    openFileInPane(fileToOpen, pane);
                 }
             }
         )
+    } 
+
+    let disposable = vscode.commands.registerCommand('extension.switch', async () => {
+        openInPane(FilePane.Current);
     });
 
-    context.subscriptions.push(switchNewPaneDisposable);
+    context.subscriptions.push(disposable);
+
+    let switchRightPaneDisposable = vscode.commands.registerCommand('extension.switchRightPane', async () => {
+        openInPane(FilePane.Right);
+    });
+
+    context.subscriptions.push(switchRightPaneDisposable);
+
+    let switchLeftPaneDisposable = vscode.commands.registerCommand('extension.switchLeftPane', async () => {
+        openInPane(FilePane.Left);
+    });
+
+    context.subscriptions.push(switchLeftPaneDisposable);
 }
 
 // this method is called when your extension is deactivated
