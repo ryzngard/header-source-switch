@@ -22,7 +22,8 @@
   "activationEvents": [
     "onCommand:extension.switch",
     "onCommand:extension.switchRightPane",
-    "onCommand:extension.switchLeftPane"
+    "onCommand:extension.switchLeftPane",
+    "onCommand:extension.toggleTracker"
   ],
   "main": "./out/src/extension",
   "contributes": {
@@ -38,6 +39,10 @@
       {
         "command": "extension.switchLeftPane",
         "title": "Switch Header/Source To Left Pane"
+      },
+      {
+        "command": "extension.toggleTracker",
+        "title": "Toggle header/source tracking mode"
       }
     ],
     "keybindings": [

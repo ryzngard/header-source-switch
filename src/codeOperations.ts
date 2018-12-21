@@ -6,6 +6,7 @@ class DocumentTracker extends vscode.Disposable
     private _disposable: vscode.Disposable = null;
     private _mainColumn: vscode.ViewColumn = null;
     private _secondaryColumn: vscode.ViewColumn = vscode.ViewColumn.Beside;
+
     constructor()
     {
         super(() => {
@@ -33,6 +34,11 @@ class DocumentTracker extends vscode.Disposable
         this._onDispose();
     }
 
+    isTracking() : boolean 
+    {
+        return this._disposable != null;
+    }
+
     private _onDispose() 
     {
         if (this._disposable != null)
@@ -50,13 +56,13 @@ class DocumentTracker extends vscode.Disposable
             let fileToOpen = await findMatchToCurrent();
             if (fileToOpen)
             {
-                openFile(fileToOpen, this._secondaryColumn);
+                openFile(fileToOpen, this._secondaryColumn, true);
             }
         }
     }
 }
 
-async function openFile(fileName:string, column:vscode.ViewColumn)
+async function openFile(fileName:string, column:vscode.ViewColumn, preserveFocus:boolean = false)
 {
     console.log("Opening " + fileName + " in " + column + " pane");
 
@@ -66,7 +72,7 @@ async function openFile(fileName:string, column:vscode.ViewColumn)
     {
         let document = await vscode.workspace.openTextDocument(uriFile);
         
-        vscode.window.showTextDocument(document, column);
+        await vscode.window.showTextDocument(document, column, preserveFocus);
         console.log("Done opening " + document.fileName);
     }
     catch(error)
@@ -119,18 +125,15 @@ export enum FilePane
     Right
 }
 
-let trackingEnabled:boolean = false;
 export var changeTracker = new DocumentTracker();
 
 export function toggleTracking()
 {
-    if (trackingEnabled)
+    if (changeTracker.isTracking())
     {
         changeTracker.reset();
-        trackingEnabled = false;
         return;
     }
 
-    trackingEnabled = true;
     changeTracker.subscribeToChanges();
 }
