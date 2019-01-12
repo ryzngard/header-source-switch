@@ -42,7 +42,7 @@
       },
       {
         "command": "extension.toggleTracker",
-        "title": "Toggle header/source tracking mode"
+        "title": "Toggle Header/Source Tracking Mode"
       }
     ],
     "keybindings": [
