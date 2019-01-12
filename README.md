@@ -9,9 +9,21 @@ Header-source switch for VS code
 
 ### Commands available 
 
-* Switch Header/Source: Opens the associated file mapping in the current pane
-* Switch Header (Left/Right) Pane: Switches to the associated mapping in a pane to the left or right
-* Toggle Header/Source Tracking Mode: Toggles the tracking mode on/off, which will automatically open the equivalent header/source file (or other mapping) in an adjacent pane when the current pane switches files. 
+#### Switch Header/Source
+
+Opens the associated file mapping in the current pane
+
+![Example of switch working](gifs/switch_example.gif?raw=true "Switch Example")
+
+#### Switch Header (Left/Right) Pane
+
+Switches to the associated mapping in a pane to the left or right
+
+#### Toggle Header/Source Tracking Mode 
+
+Toggles the tracking mode on/off, which will automatically open the equivalent header/source file (or other mapping) in an adjacent pane when the current pane switches files.
+
+![Example of tracking mode working](gifs/tracker_example.gif?raw=true "Tracking Mode Example")
 
 ## Source
 
