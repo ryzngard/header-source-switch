@@ -79,62 +79,33 @@ export function findMatchedFileAsync(currentFileName:string) : Thenable<string> 
     }
     else
     {
-        return new Promise<string>((resolve, reject) =>
-        {
-            let promises = new Array<Promise<vscode.Uri[]>>();
-            extensions.forEach(ext => {
-                promises.push(new Promise<vscode.Uri[]>(
-                    (resolve, reject) =>
-                    {
-                        vscode.workspace.findFiles('**/'+fileWithoutExtension+ext).then(
-                            (uris) =>
-                            {
-                                resolve(uris);
-                            }
-                        );
-                    }));
-            });
-
-            Promise.all(promises).then(
-                (values:any[]) => {
-                    let resolved = false;
-
-                    if (values.length == 0) {
-                        resolve(null);
-                        return;
-                    }
-
-                    values = values.filter((value: any) => {
-                        return value && value.length > 0;
-                    });
-
-                    // flatten the values to a single array
-                    let filePaths = [].concat.apply([], values);
-                    filePaths = filePaths.map((uri: vscode.Uri, index: number) => {
-                        return path.normalize(uri.fsPath);
-                    });
-
-                    // Try to order the filepaths based on closeness to original file
-                    filePaths.sort((a: string, b: string) => {
-                        let aRelative = path.relative(currentFileName, a);
-                        let bRelative = path.relative(currentFileName, b);
-
-                        let aDistance = aRelative.split(path.sep).length;
-                        let bDistance = bRelative.split(path.sep).length;
-
-                        return aDistance - bDistance;
-                    });
-
-                    if (filePaths && filePaths.length > 0)
-                    {
-                        resolve(filePaths[0]);
-                    }
-                    else 
-                    {
-                        reject('no paths matching');
-                    }
-                }
-            );
-        });
+        return findFileAsync(currentFileName, fileWithoutExtension, extensions);
     }
+}
+
+async function findFileAsync(fileWithExtension: string, fileWithoutExtension: string, extensions: string[]) : Promise<string>
+{
+    let files = await vscode.workspace.findFiles('**/' + fileWithoutExtension + '.*');
+
+    if (files.length == 0)
+    {
+        throw "No files found";
+    }
+
+    let normalizedPaths = files.map((file: vscode.Uri) => {
+        return path.normalize(file.fsPath);
+    });
+
+    // Try to order the filepaths based on closeness to original file
+    let sortedPaths = normalizedPaths.sort((a: string, b: string) => {
+        let aRelative = path.relative(fileWithExtension, a);
+        let bRelative = path.relative(fileWithExtension, b);
+
+        let aDistance = aRelative.split(path.sep).length;
+        let bDistance = bRelative.split(path.sep).length;
+
+        return aDistance - bDistance;
+    });
+
+    return sortedPaths[0];
 }
