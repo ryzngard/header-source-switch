@@ -23,6 +23,7 @@
     "onCommand:extension.switch",
     "onCommand:extension.switchRightPane",
     "onCommand:extension.switchLeftPane",
+    "onCommand:extension.switchOtherPane",
     "onCommand:extension.toggleTracker"
   ],
   "main": "./out/src/extension",
@@ -39,6 +40,10 @@
       {
         "command": "extension.switchLeftPane",
         "title": "Switch Header/Source To Left Pane"
+      },
+      {
+        "command": "extension.switchOtherPane",
+        "title": "Switch Header/Source To The Other Pane"
       },
       {
         "command": "extension.toggleTracker",

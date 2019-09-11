@@ -25,6 +25,12 @@ export function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(switchLeftPaneDisposable);
 
+    let switchOtherPaneDisposable = vscode.commands.registerCommand('extension.switchOtherPane', async () => {
+        openFileInPane(FilePane.Other);
+    });
+
+    context.subscriptions.push(switchOtherPaneDisposable);
+
     let toggleChangeTrackingDisposable = vscode.commands.registerCommand('extension.toggleTracker', async () => {
         toggleTracking();
     });
