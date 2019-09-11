@@ -113,6 +113,11 @@ export async function openFileInPane(pane:FilePane)
         case FilePane.Right:
             viewColumn = currentColumn + 1;
             break;
+        case FilePane.Other:
+            viewColumn = (currentColumn == vscode.ViewColumn.One ?
+                            vscode.ViewColumn.Two :
+                            currentColumn - 1);
+            break;
     }
 
     openFile(fileName, viewColumn);
@@ -122,7 +127,8 @@ export enum FilePane
 {
     Current,
     Left,
-    Right
+    Right,
+    Other,
 }
 
 export var changeTracker = new DocumentTracker();
