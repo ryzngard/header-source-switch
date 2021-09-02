@@ -48,11 +48,13 @@
     "keybindings": [
       {
         "command": "extension.switch",
-        "key": "alt+o"
+        "key": "alt+o",
+        "when":"editorTextFocus"
       },
       {
         "command": "extension.switchRightPane",
-        "key": "shift+alt+o"
+        "key": "shift+alt+o",
+        "when":"editorTextFocus"
       }
     ],
     "configuration": {
