@@ -1,15 +1,14 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
-import fileExists = require('file-exists');
 
-interface FileMapping {
+export interface FileMapping {
     header: string[]
     source: string[]
     name: string
 }
 
-export function findMatchedFileAsync(currentFileName:string) : Thenable<string> {
+export async function findMatchedFileAsync(currentFileName:string, mappings: FileMapping[]) : Promise<string> {
     let dir = path.dirname(currentFileName);
     let extension = path.extname(currentFileName);
 
@@ -23,9 +22,6 @@ export function findMatchedFileAsync(currentFileName:string) : Thenable<string> 
 
     // Determine if the file is a header or source file.
     let extensions : string[] = null;
-
-    let cfg = vscode.workspace.getConfiguration('headerSourceSwitch');
-    let mappings = cfg.get<FileMapping[]>('mappings');
 
     for (let i = 0; i < mappings.length; i++) {
         let mapping = mappings[i];

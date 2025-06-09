@@ -60,6 +60,12 @@ Please contact [me](mailto:ryzngard@live.com) if you have any questions, concern
 
 ## Release Notes
 
+### 1.4.0
+
+* Add (open in other pane)[https://github.com/ryzngard/header-source-switch/pull/13]
+* Update and audit dependencies
+* Add tests
+
 ### 1.3.0
 
 Add toggle mode, which automatically opens associated mapping files when the current pane switches to a new file. 
