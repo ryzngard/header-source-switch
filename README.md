@@ -19,6 +19,10 @@ Opens the associated file mapping in the current pane
 
 Switches to the associated mapping in a pane to the left or right
 
+#### Switch Header (Other) Pane
+
+Switches to the associated mapping in a different pane than the current one.
+
 #### Toggle Header/Source Tracking Mode 
 
 Toggles the tracking mode on/off, which will automatically open the equivalent header/source file (or other mapping) in an adjacent pane when the current pane switches files.
