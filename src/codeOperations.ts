@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { findMatchedFileAsync } from './fileOperations';
+import { FileMapping, findMatchedFileAsync } from './fileOperations';
 
 class DocumentTracker extends vscode.Disposable
 {
@@ -85,7 +85,9 @@ async function findMatchToCurrent()
 {
     let activeTextEditor = vscode.window.activeTextEditor;
     let document = activeTextEditor.document;
-    let fileName = await findMatchedFileAsync(document.fileName);
+    let cfg = vscode.workspace.getConfiguration('headerSourceSwitch');
+    let mappings = cfg.get<FileMapping[]>('mappings');
+    let fileName = await findMatchedFileAsync(document.fileName, mappings);
 
     return fileName;
 }
