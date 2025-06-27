@@ -80,9 +80,12 @@ suite("Find Matching", () => {
     test('hx/mm', async () => {
         await testFoundFile('test.hx', 'test.mm');
     });
+    test('fuzzyMatch', async () => {
+        await testFoundFile('test.fuzzy', 'testFuzzy.source', true);
+    })
 });
 
-async function testFoundFile(header: string, source: string) {
+async function testFoundFile(header: string, source: string, fuzzyMatch: boolean = false) {
     let headerPath = path.join(workspacePath, header);
     let sourcePath = path.join(workspacePath, source);
 
@@ -94,9 +97,9 @@ async function testFoundFile(header: string, source: string) {
         }
     ]
 
-    let match = await findMatchedFileAsync(headerPath, mappings);
+    let match = await findMatchedFileAsync(headerPath, mappings, fuzzyMatch);
     assert.strictEqual(match, sourcePath);
 
-    match = await findMatchedFileAsync(sourcePath, mappings);
+    match = await findMatchedFileAsync(sourcePath, mappings, fuzzyMatch);
     assert.strictEqual(match, headerPath);
 }
