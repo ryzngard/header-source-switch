@@ -75,6 +75,11 @@
               "name": "C++"
             }
           ]
+        },
+        "headerSourceSwitch.fuzzyMatch": {
+          "type": "boolean",
+          "default": false,
+          "description": "If true, attempt to find a file with a similar name and matching extension. See https://github.com/ryzngard/header-source-switch/issues/22 for discussion. Defaults to false."
         }
       }
     }

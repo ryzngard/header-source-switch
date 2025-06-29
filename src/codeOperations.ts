@@ -87,7 +87,8 @@ async function findMatchToCurrent()
     let document = activeTextEditor.document;
     let cfg = vscode.workspace.getConfiguration('headerSourceSwitch');
     let mappings = cfg.get<FileMapping[]>('mappings');
-    let fileName = await findMatchedFileAsync(document.fileName, mappings);
+    let fuzzyMatch = cfg.get<boolean>('fuzzyMatch', false);
+    let fileName = await findMatchedFileAsync(document.fileName, mappings, fuzzyMatch);
 
     return fileName;
 }
