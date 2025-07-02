@@ -2,7 +2,7 @@
   "name": "vscode-header-source",
   "displayName": "Header source switch",
   "description": "Header-source switcher for vscode",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "publisher": "ryzngard",
   "bugs": {
     "url": "https://github.com/ryzngard/header-source-switch/issues"
@@ -20,6 +20,9 @@
     "Other"
   ],
   "main": "./out/src/extension",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
   "contributes": {
     "commands": [
       {
@@ -96,7 +99,7 @@
     "@types/vscode": "^1.70.0",
     "@vscode/test-cli": "^0.0.11",
     "@vscode/test-electron": "^2.5.2",
-    "@vscode/vsce": "^3.5.0",
+    "@vscode/vsce": "^3.6.0",
     "mocha": "^11.6.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
