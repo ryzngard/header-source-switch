@@ -4,9 +4,19 @@ All notable changes to the "header-source-switch" extension will be documented i
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## 1.5.0
+- Add (fuzzy match)[https://github.com/ryzngard/header-source-switch/pull/24]
+- Downgrade vs code dependency to support (windows 7)[https://github.com/ryzngard/header-source-switch/pull/26]
+
+## 1.4.0
+
+- Add (open in other pane)[https://github.com/ryzngard/header-source-switch/pull/13]
+- Update and audit dependencies
+- Add tests
+
 ## 1.3.0
 
-Add toggle mode, which automatically opens associated mapping files when the current pane switches to a new file.
+- Add toggle mode, which automatically opens associated mapping files when the current pane switches to a new file.
 
 ## 1.2.0
 
